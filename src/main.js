@@ -7,15 +7,18 @@ import store from './store';
 
 //css
 import "/src/assets/css/main.css";
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 //plugins
 import VueNumberInput from '@chenfengyuan/vue-number-input';
+import VueLoading from 'vue-loading-overlay';
 import axios from "axios";
 
 const app = createApp(App);
 
 //components
 app.component(VueNumberInput.name, VueNumberInput);
+app.component('loading', VueLoading);
 app.component('main-header', MainHeader);
 
 //libraries / plugins

@@ -1,59 +1,33 @@
 <script>
+import ProductItem from "./ProductItem.vue";
+import { mapState, mapActions } from "vuex";
+
 export default {
-    name: "ProductIndex"
+    name: "ProductIndex",
+    components: {
+        ProductItem,
+    },
+    computed: {
+        ...mapState({
+            products: state => state.products.products,
+            productsLoading: state => state.products.productsLoading,
+        })
+    },
+    mounted() {
+        this.fetchAllProducts();
+    },
+    methods: {
+        ...mapActions([
+            'fetchAllProducts',
+        ]),
+    }
 }
 </script>
 
 <template>
     <div class="grid grid-cols-5 gap-4 px-20">
-        <div class="bg-white h-76 flex flex-col justify-between place-items-center">
-            <div class="p-2"><img src="../../assets/logo.png" alt=""></div>
-            <span class="text-sm text-gray-500">Title</span>
-            <span class="text-sm text-cyan-400">Rs.300</span>
-            <div class="p-4 text-xs text-gray-500">
-                <button class="border px-3 py-1 border-gray-300">ADD TO CART</button>
-            </div>
-        </div>
-        <div class="bg-white h-76 flex flex-col justify-between place-items-center">
-            <div class="p-2"><img src="../../assets/logo.png" alt=""></div>
-            <span class="text-sm text-gray-500">Title</span>
-            <span class="text-sm text-cyan-400">Rs.300</span>
-            <div class="p-4 text-xs text-gray-500">
-                <button class="border px-3 py-1 border-gray-300">ADD TO CART</button>
-            </div>
-        </div>
-        <div class="bg-white h-76 flex flex-col justify-between place-items-center">
-            <div class="p-2"><img src="../../assets/logo.png" alt=""></div>
-            <span class="text-sm text-gray-500">Title</span>
-            <span class="text-sm text-cyan-400">Rs.300</span>
-            <div class="p-4 text-xs text-gray-500">
-                <button class="border px-3 py-1 border-gray-300">ADD TO CART</button>
-            </div>
-        </div>
-        <div class="bg-white h-76 flex flex-col justify-between place-items-center">
-            <div class="p-2"><img src="../../assets/logo.png" alt=""></div>
-            <span class="text-sm text-gray-500">Title</span>
-            <span class="text-sm text-cyan-400">Rs.300</span>
-            <div class="p-4 text-xs text-gray-500">
-                <button class="border px-3 py-1 border-gray-300">ADD TO CART</button>
-            </div>
-        </div>
-        <div class="bg-white h-76 flex flex-col justify-between place-items-center">
-            <div class="p-2"><img src="../../assets/logo.png" alt=""></div>
-            <span class="text-sm text-gray-500">Title</span>
-            <span class="text-sm text-cyan-400">Rs.300</span>
-            <div class="p-4 text-xs text-gray-500">
-                <button class="border px-3 py-1 border-gray-300">ADD TO CART</button>
-            </div>
-        </div>
-        <div class="bg-white h-76 flex flex-col justify-between place-items-center">
-            <div class="p-2"><img src="../../assets/logo.png" alt=""></div>
-            <span class="text-sm text-gray-500">Title</span>
-            <span class="text-sm text-cyan-400">Rs.300</span>
-            <div class="p-4 text-xs text-gray-500">
-                <button class="border px-3 py-1 border-gray-300">ADD TO CART</button>
-            </div>
-        </div>
+        <loading :active="productsLoading" loader="bars"/>
+        <product-item :key="product.id" v-for="product in products" :product="product" />
     </div>
 </template>
 

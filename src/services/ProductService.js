@@ -6,8 +6,6 @@ export default class ProductService {
     }
 
     static fetch(productId) {
-        return axios.get(`${baseURL}/${productId}`)
-            .then(response => response.data)
-            .catch(error => console.log(error));
+        return axios.get(`${baseURL}/${productId}`);
     }
 }
