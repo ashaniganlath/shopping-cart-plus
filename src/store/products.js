@@ -1,5 +1,4 @@
 import ProductService from "../services/ProductService";
-import {comment} from "postcss";
 
 const productStore = {
     state: () =>  ({
