@@ -6,23 +6,23 @@ const productStore = {
         activeProduct: {},
     }),
     mutations: {
-        setProducts({state}, products) {
+        setProducts(state, products) {
             state.products = products;
         },
 
-        setActiveProduct({state}, product) {
+        setActiveProduct(state, product) {
             state.activeProduct = product;
         }
     },
     actions: {
         async fetchAllProducts({commit}) {
             await ProductService.fetchAll()
-                .then(response => commit('setProducts', response));
+                .then(response => commit('setProducts', response.data));
         },
 
         async fetchProduct({commit}, productId) {
             await ProductService.fetch(productId)
-                .then(response => commit('setActiveProduct', response));
+                .then(response => commit('setActiveProduct', response.data));
         }
     }
 }
