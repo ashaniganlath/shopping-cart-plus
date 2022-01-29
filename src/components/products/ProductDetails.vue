@@ -1,10 +1,14 @@
 <script>
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import mixins from "../../mixins";
+import ProductsInSameCategory from "./ProductsInSameCategory.vue";
 
 export default {
     name: "ProductDetails",
     mixins: [mixins],
+    components: {
+        ProductsInSameCategory
+    },
     props: {
         productId: {
             required: true,
@@ -25,11 +29,20 @@ export default {
             productQuantityInShoppingCart: 'productQuantityInShoppingCart',
         }),
     },
+    watch: {
+        productId(value) {
+            this.setActiveProductLoading(true);
+            this.fetchProduct(value);
+        }
+    },
     mounted() {
         this.fetchProduct(this.productId);
         this.productQuantity = this.productQuantityInShoppingCart(this.productId) ?? this.defaultCount;
     },
     methods: {
+        ...mapMutations({
+            setActiveProductLoading: 'setActiveProductLoading',
+        }),
         ...mapActions({
             fetchProduct: 'fetchProduct',
             updateProductQuantityInCart: 'updateProductQuantityInCart',
@@ -54,8 +67,8 @@ export default {
 <template>
     <loading :active="activeProductLoading" loader="bars"/>
 
-    <div v-if="!activeProductLoading" class="grid grid-cols-2 gap-4 m-20 p-5 w-3/6 bg-white">
-        <div><img :src="activeProduct.image" class="h-72" alt=""></div>
+    <div class="grid grid-cols-2 gap-4 m-20 p-5 bg-white">
+        <div class="justify-self-center"><img :src="activeProduct.image" class="h-72" alt=""></div>
         <div class="flex flex-col gap-3">
             <span class="text-2xl text-gray-600">{{ activeProduct.title }}</span>
             <span class="text-xs text-gray-400">{{ activeProduct.description }}</span>
@@ -74,4 +87,6 @@ export default {
             </span>
         </div>
     </div>
+
+    <products-in-same-category></products-in-same-category>
 </template>

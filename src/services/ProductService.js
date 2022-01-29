@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const baseURL = 'https://fakestoreapi.com/products';
 
 export default class ProductService {
@@ -7,5 +9,9 @@ export default class ProductService {
 
     static fetch(productId) {
         return axios.get(`${baseURL}/${productId}`);
+    }
+
+    static fetchInCategory(category) {
+        return axios.get(`${baseURL}/category/${category}`);
     }
 }
