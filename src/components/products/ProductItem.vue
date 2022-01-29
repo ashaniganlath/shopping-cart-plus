@@ -1,8 +1,10 @@
 <script>
 import {mapActions} from "vuex";
+import mixins from "../../mixins.js";
 
 export default {
     name: "ProductItem",
+    mixins: [mixins],
     props: {
         product: {
             required: true,
@@ -31,7 +33,7 @@ export default {
                     {{ product.title }}
                 </router-link>
         </span>
-        <span class="text-sm text-cyan-400">USD {{ product.price }}</span>
+        <span class="text-sm text-cyan-400">{{ convertToUsd(product.price) }}</span>
         <div class="p-4 text-xs text-gray-500">
             <button
                 class="border px-3 py-1 border-gray-300 hover:bg-cyan-400 hover:text-white uppercase"

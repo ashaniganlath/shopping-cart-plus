@@ -1,8 +1,10 @@
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
+import mixins from "../../mixins";
 
 export default {
     name: "ProductDetails",
+    mixins: [mixins],
     props: {
         productId: {
             required: true,
@@ -58,7 +60,7 @@ export default {
             <span class="text-2xl text-gray-600">{{ activeProduct.title }}</span>
             <span class="text-xs text-gray-400">{{ activeProduct.description }}</span>
             <span class="text-xs text-gray-400">Category: {{ activeProduct.category }}</span>
-            <span class="text-base text-cyan-400">USD: {{ activeProduct.price }}</span>
+            <span class="text-base text-cyan-400">{{ convertToUsd(activeProduct.price) }}</span>
             <span class="text-sm text-gray-500 w-24">
                 <vue-number-input size="small" :min="1" controls :model-value="productQuantity" @update:model-value="updateQuantity"></vue-number-input>
             </span>
