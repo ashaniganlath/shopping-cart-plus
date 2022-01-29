@@ -27,6 +27,7 @@ export default {
 <template>
     <div class="grid grid-cols-5 gap-4 px-20">
         <loading :active="productsLoading" loader="bars"/>
+
         <product-item :key="product.id" v-for="product in products" :product="product" />
     </div>
 </template>

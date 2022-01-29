@@ -6,9 +6,14 @@ export default {
 
 <template>
     <div class="flex flex-row shadow h-16 bg-white px-10 align-middle mb-10">
-        <div class="flex-none w-5/6 text-2xl self-center font-sans pl-4">
+        <div class="flex-none w-2/6 text-2xl self-center font-sans pl-4">
             <router-link :to="{ name: 'product-index' }">
-                <img src="src/assets/images/logo.png" alt="" class="object-contain h-16" />
+                <img src="/src/assets/images/logo.png" alt="" class="object-contain h-16" />
+            </router-link>
+        </div>
+        <div class="flex-none w-3/6 text-base self-center font-sans text-cyan-400 pl-4">
+            <router-link :to="{ name: 'product-index' }">
+                Products
             </router-link>
         </div>
         <div class="flex flex-row w-1/6 self-center pt-2 text-gray-500 pl-24">

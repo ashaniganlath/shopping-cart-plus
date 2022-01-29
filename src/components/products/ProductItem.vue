@@ -1,10 +1,23 @@
 <script>
+import {mapActions} from "vuex";
+
 export default {
     name: "ProductItem",
     props: {
         product: {
             required: true,
             type: Object
+        }
+    },
+    methods: {
+        ...mapActions({
+            incrementProductQuantityInCart: 'incrementProductQuantityInCart'
+        }),
+        addProductToShoppingCart() {
+            this.incrementProductQuantityInCart({
+                product: this.product,
+                quantity: 1,
+            });
         }
     }
 }
@@ -20,7 +33,12 @@ export default {
         </span>
         <span class="text-sm text-cyan-400">USD {{ product.price }}</span>
         <div class="p-4 text-xs text-gray-500">
-            <button class="border px-3 py-1 border-gray-300 hover:bg-cyan-400 hover:text-white">ADD TO CART</button>
+            <button
+                class="border px-3 py-1 border-gray-300 hover:bg-cyan-400 hover:text-white uppercase"
+                @click="addProductToShoppingCart"
+            >
+                Add to cart
+            </button>
         </div>
     </div>
 </template>
