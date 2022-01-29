@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import App from "./App.vue";
 import MainHeader from "./components/MainHeader.vue";
 
@@ -28,3 +28,4 @@ app.use(store);
 app.mount("#app");
 
 window.axios = axios;
+window.defineAsyncComponent = defineAsyncComponent;

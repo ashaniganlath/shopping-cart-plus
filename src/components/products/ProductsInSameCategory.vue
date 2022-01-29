@@ -1,11 +1,10 @@
 <script>
-import ProductItem from "./ProductItem.vue";
 import { mapState } from "vuex";
 
 export default {
     name: "RelatedProducts",
     components: {
-        ProductItem,
+        ProductItem: defineAsyncComponent(() => import("./ProductItem.vue")),
     },
     computed: {
         ...mapState({

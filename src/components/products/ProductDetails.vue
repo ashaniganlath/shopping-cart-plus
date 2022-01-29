@@ -1,12 +1,11 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import mixins from "../../mixins";
-import ProductsInSameCategory from "./ProductsInSameCategory.vue";
 
 export default {
     name: "ProductDetails",
     components: {
-        ProductsInSameCategory,
+        ProductsInSameCategory: defineAsyncComponent(() => import("./ProductsInSameCategory.vue")),
     },
     mixins: [mixins],
     props: {

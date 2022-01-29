@@ -1,11 +1,10 @@
 <script>
-import ProductItem from "./ProductItem.vue";
 import { mapState, mapActions } from "vuex";
 
 export default {
     name: "ProductIndex",
     components: {
-        ProductItem,
+        ProductItem: defineAsyncComponent(() => import("./ProductItem.vue")),
     },
     computed: {
         ...mapState({
@@ -17,7 +16,9 @@ export default {
         this.fetchAllProducts();
     },
     methods: {
-        ...mapActions(["fetchAllProducts"]),
+        ...mapActions({
+            fetchAllProducts: "fetchAllProducts",
+        }),
     },
 };
 </script>

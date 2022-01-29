@@ -1,13 +1,11 @@
 <script>
-import ShoppingCartSummary from "./ShoppingCartSummary.vue";
-import ShoppingCartItem from "./ShoppingCartItem.vue";
 import { mapState } from "vuex";
 
 export default {
     name: "ShoppingCartIndex",
     components: {
-        ShoppingCartItem,
-        ShoppingCartSummary,
+        ShoppingCartItem: defineAsyncComponent(() => import("./ShoppingCartItem.vue")),
+        ShoppingCartSummary: defineAsyncComponent(() => import("./ShoppingCartSummary.vue")),
     },
     computed: {
         ...mapState({
