@@ -20,12 +20,12 @@ export default {
             activeProductLoading: state => state.products.activeProductLoading,
         }),
         ...mapGetters({
-            quantityInShoppingCart: 'quantityInShoppingCart',
+            productQuantityInShoppingCart: 'productQuantityInShoppingCart',
         }),
     },
     mounted() {
         this.fetchProduct(this.productId);
-        this.productQuantity = this.quantityInShoppingCart(this.productId) ?? this.defaultCount;
+        this.productQuantity = this.productQuantityInShoppingCart(this.productId) ?? this.defaultCount;
     },
     methods: {
         ...mapActions({
