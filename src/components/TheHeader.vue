@@ -23,7 +23,7 @@ export default {
                 Products
             </router-link>
         </div>
-        <div class="flex flex-row w-1/6 self-center pt-2 text-gray-500 pl-36">
+        <div v-memo="[totalNumberOfItemsInCart]" class="flex flex-row w-1/6 self-center pt-2 text-gray-500 pl-36">
             <router-link :to="{ name: 'shopping-cart' }">
                 <span><i class="material-icons">shopping_cart</i></span>
             </router-link>
