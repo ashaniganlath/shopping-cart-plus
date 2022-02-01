@@ -1,10 +1,12 @@
 <script>
-import {mapActions} from "vuex";
 import mixins from "../../mixins.js";
 
 export default {
     name: "ProductItem",
     mixins: [mixins],
+    emits: [
+        'update-quantity-in-cart',
+    ],
     props: {
         product: {
             required: true,
@@ -13,17 +15,6 @@ export default {
         showAddToCart: {
             type: Boolean,
             default: true,
-        }
-    },
-    methods: {
-        ...mapActions({
-            incrementProductQuantityInCart: 'incrementProductQuantityInCart'
-        }),
-        addProductToShoppingCart() {
-            this.incrementProductQuantityInCart({
-                product: this.product,
-                quantity: 1,
-            });
         }
     }
 }
@@ -41,7 +32,7 @@ export default {
         <div v-if="showAddToCart" class="p-4 text-xs text-gray-500">
             <button
                 class="border px-3 py-1 border-gray-300 hover:bg-cyan-400 hover:text-white uppercase"
-                @click="addProductToShoppingCart"
+                @click="$emit('update-quantity-in-cart', product)"
             >
                 Add to cart
             </button>

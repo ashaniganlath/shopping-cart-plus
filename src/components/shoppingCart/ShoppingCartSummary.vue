@@ -16,7 +16,7 @@ export default {
             subTotal: 'subTotal',
         }),
         total() {
-            if (! this.subTotal) {
+            if (!this.subTotal) {
                 return 0;
             }
 
