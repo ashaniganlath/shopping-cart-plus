@@ -13,7 +13,7 @@ export default {
             productsLoading: state => state.products.productsLoading,
         })
     },
-    mounted() {
+    created() {
         this.fetchAllProducts();
     },
     methods: {

@@ -1,14 +1,16 @@
+import {ADD_PRODUCT, REMOVE_PRODUCT} from "./mutationTypes";
+
 const shoppingCartStore = {
     state: () =>  ({
         shoppingCartItems: [],
     }),
     mutations: {
-        addProduct(state, { product, quantity }) {
+        [ADD_PRODUCT](state, { product, quantity }) {
             product['quantity'] = quantity;
 
             state.shoppingCartItems.push(product);
         },
-        removeProduct(state, productId) {
+        [REMOVE_PRODUCT](state, productId) {
             state.shoppingCartItems = state.shoppingCartItems.filter(cartProduct => cartProduct.id !== productId)
         }
     },
@@ -37,7 +39,7 @@ const shoppingCartStore = {
     },
     actions: {
         addProductToCart({commit}, {product, quantity}) {
-            return commit('addProduct', { product: product, quantity: quantity });
+            return commit(ADD_PRODUCT, { product: product, quantity: quantity });
         },
         incrementProductQuantity({getters}, {productId, quantity}){
             const cartProduct = getters.productInShoppingCart(productId);
@@ -58,7 +60,7 @@ const shoppingCartStore = {
             });
         },
         removeProductFromShoppingCart({commit}, productId ) {
-            return commit('removeProduct', productId);
+            return commit(REMOVE_PRODUCT, productId);
         },
         updateProductQuantity({getters}, {productId, quantity}) {
             const cartProduct = getters.productInShoppingCart(productId);

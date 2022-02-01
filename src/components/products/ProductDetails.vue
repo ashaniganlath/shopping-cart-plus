@@ -2,6 +2,7 @@
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import mixins from "../../mixins";
 import ProductsInSameCategory from "./ProductsInSameCategory.vue";
+import {SET_ACTIVE_PRODUCT_LOADING} from "../../store/mutationTypes";
 
 export default {
     name: "ProductDetails",
@@ -30,19 +31,19 @@ export default {
         }),
     },
     watch: {
-        productId(value) {
-            this.setActiveProductLoading(true);
-            this.fetchProduct(value);
+        productId: {
+            immediate: true,
+            handler(newValue) {
+                this[SET_ACTIVE_PRODUCT_LOADING](true);
+                this.fetchProduct(newValue);
+            }
         }
     },
-    mounted() {
-        this.fetchProduct(this.productId);
+    created() {
         this.productQuantity = this.productQuantityInShoppingCart(this.productId) ?? this.defaultCount;
     },
     methods: {
-        ...mapMutations({
-            setActiveProductLoading: 'setActiveProductLoading',
-        }),
+        ...mapMutations([SET_ACTIVE_PRODUCT_LOADING]),
         ...mapActions({
             fetchProduct: 'fetchProduct',
             updateProductQuantityInCart: 'updateProductQuantityInCart',
