@@ -5,6 +5,10 @@ import mixins from "../../mixins";
 export default {
     name: "ShoppingCartItem",
     mixins: [mixins],
+    emits: [
+        'remove-item',
+        'update-quantity'
+    ],
     props: {
         cartItem: {
             required: true,
@@ -17,13 +21,13 @@ export default {
             removeProductFromShoppingCart: "removeProductFromShoppingCart",
         }),
         updateQuantity(quantity) {
-            this.updateProductQuantityInCart({
-                product: this.cartItem,
+            this.$emit('update-quantity', {
+                cartItem: this.cartItem,
                 quantity: quantity,
             });
-        },
-    },
-};
+        }
+    }
+}
 </script>
 
 <template>
@@ -55,11 +59,7 @@ export default {
             ></vue-number-input>
         </td>
         <td class="w-10 text-gray-500 text-right">
-            <i
-                class="material-icons text-lg cursor-pointer"
-                @click="removeProductFromShoppingCart(cartItem.id)"
-                >delete</i
-            >
+            <i class="material-icons text-lg cursor-pointer" @click="$emit('remove-item', cartItem.id)">delete</i>
         </td>
     </tr>
 </template>

@@ -1,5 +1,5 @@
 <script>
-import { mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
     name: "ShoppingCartIndex",
@@ -12,7 +12,19 @@ export default {
             shoppingCartItems: (state) => state.shoppingCart.shoppingCartItems,
         }),
     },
-};
+    methods: {
+        ...mapActions({
+            updateProductQuantityInCart: 'updateProductQuantityInCart',
+            removeProductFromShoppingCart: 'removeProductFromShoppingCart',
+        }),
+        updateQuantity({cartItem, quantity}) {
+            this.updateProductQuantityInCart({
+                product: cartItem,
+                quantity: quantity,
+            })
+        }
+    }
+}
 </script>
 
 <template>
@@ -23,11 +35,9 @@ export default {
                 class="w-full table-fixed text-gray-500 text-sm"
             >
                 <tbody class="divide-y">
-                    <shopping-cart-item
-                        v-for="cartItem in shoppingCartItems"
-                        :key="cartItem.id"
-                        :cart-item="cartItem"
-                    />
+                <shopping-cart-item :cart-item="cartItem" v-for="cartItem in shoppingCartItems"
+                                    @update-quantity="updateQuantity"
+                                    @remove-item="removeProductFromShoppingCart"/>
                 </tbody>
             </table>
             <div v-else class="text-center text-gray-400 text-sm">

@@ -1,18 +1,18 @@
+import {ADD_PRODUCT, REMOVE_PRODUCT} from "./mutationTypes";
+
 const shoppingCartStore = {
     state: () => ({
         shoppingCartItems: [],
     }),
     mutations: {
-        addProduct(state, { product, quantity }) {
-            product["quantity"] = quantity;
+        [ADD_PRODUCT](state, { product, quantity }) {
+            product['quantity'] = quantity;
 
             state.shoppingCartItems.push(product);
         },
-        removeProduct(state, productId) {
-            state.shoppingCartItems = state.shoppingCartItems.filter(
-                (cartProduct) => cartProduct.id !== productId
-            );
-        },
+        [REMOVE_PRODUCT](state, productId) {
+            state.shoppingCartItems = state.shoppingCartItems.filter(cartProduct => cartProduct.id !== productId)
+        }
     },
     getters: {
         productQuantityInShoppingCart: (state, getters) => (productId) => {
@@ -42,11 +42,8 @@ const shoppingCartStore = {
         },
     },
     actions: {
-        addProductToCart({ commit }, { product, quantity }) {
-            return commit("addProduct", {
-                product: product,
-                quantity: quantity,
-            });
+        addProductToCart({commit}, {product, quantity}) {
+            return commit(ADD_PRODUCT, { product: product, quantity: quantity });
         },
         incrementProductQuantity({ getters }, { productId, quantity }) {
             const cartProduct = getters.productInShoppingCart(productId);
@@ -69,8 +66,8 @@ const shoppingCartStore = {
                 quantity: quantity,
             });
         },
-        removeProductFromShoppingCart({ commit }, productId) {
-            return commit("removeProduct", productId);
+        removeProductFromShoppingCart({commit}, productId ) {
+            return commit(REMOVE_PRODUCT, productId);
         },
         updateProductQuantity({ getters }, { productId, quantity }) {
             const cartProduct = getters.productInShoppingCart(productId);

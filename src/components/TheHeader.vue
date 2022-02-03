@@ -2,7 +2,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-    name: "MainHeader",
+    name: "TheHeader",
     computed: {
         ...mapGetters({
             totalNumberOfItemsInCart: "totalNumberOfItemsInCart",
@@ -13,7 +13,7 @@ export default {
 
 <template>
     <div class="flex flex-row shadow h-16 bg-white px-10 align-middle mb-10">
-        <div class="flex-none w-2/6 text-2xl self-center font-sans pl-4">
+        <div v-once class="flex-none w-2/6 text-2xl self-center font-sans pl-4">
             <router-link :to="{ name: 'product-index' }">
                 <img
                     src="/src/assets/images/logo.png"
@@ -22,14 +22,12 @@ export default {
                 />
             </router-link>
         </div>
-        <div
-            class="flex-none w-3/6 text-base self-center font-sans text-cyan-400 pl-4"
-        >
+        <div v-once class="flex-none w-3/6 text-base self-center font-sans text-cyan-400 pl-4">
             <router-link :to="{ name: 'product-index' }">
                 Products
             </router-link>
         </div>
-        <div class="flex flex-row w-1/6 self-center pt-2 text-gray-500 pl-36">
+        <div v-memo="[totalNumberOfItemsInCart]" class="flex flex-row w-1/6 self-center pt-2 text-gray-500 pl-36">
             <router-link :to="{ name: 'shopping-cart' }">
                 <span><i class="material-icons">shopping_cart</i></span>
             </router-link>

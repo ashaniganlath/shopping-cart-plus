@@ -1,6 +1,6 @@
 import { createApp, defineAsyncComponent } from "vue";
-import App from "./App.vue";
-import MainHeader from "./components/MainHeader.vue";
+import App from './App.vue';
+import TheHeader from './components/TheHeader.vue';
 
 import router from "./router";
 import store from "./store";
@@ -18,8 +18,8 @@ const app = createApp(App);
 
 //components
 app.component(VueNumberInput.name, VueNumberInput);
-app.component("VueLoading", VueLoading);
-app.component("MainHeader", MainHeader);
+app.component('vue-loading', VueLoading);
+app.component('the-header', TheHeader);
 
 //libraries / plugins
 app.use(router);
