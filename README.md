@@ -1,7 +1,14 @@
-# Vue 3 + Vite
+# Shopping Cart plus
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+this application is using the https://fakestoreapi.com/docs open api for data and follow the given steps to set it up.
 
-## Recommended IDE Setup
+## Application Scope
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- products page
+- shopping cart 
+
+## Application Scope
+
+1. clone the repository 
+2. run `npm install`
+3. run `npm run dev`
