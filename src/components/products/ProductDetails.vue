@@ -1,19 +1,93 @@
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import mixins from "../../mixins";
+import ProductsInSameCategory from "./ProductsInSameCategory.vue";
+import {SET_ACTIVE_PRODUCT_LOADING} from "../../store/mutationTypes";
+
 export default {
-    name: "ProductDetails"
+    name: "ProductDetails",
+    mixins: [mixins],
+    components: {
+        ProductsInSameCategory
+    },
+    props: {
+        productId: {
+            required: true,
+        }
+    },
+    data() {
+        return {
+            defaultCount: 1,
+            productQuantity: 0,
+        }
+    },
+    computed:{
+        ...mapState({
+            activeProduct: state => state.products.activeProduct,
+            activeProductLoading: state => state.products.activeProductLoading,
+        }),
+        ...mapGetters({
+            productQuantityInShoppingCart: 'productQuantityInShoppingCart',
+        }),
+    },
+    watch: {
+        productId: {
+            immediate: true,
+            handler(newValue) {
+                this[SET_ACTIVE_PRODUCT_LOADING](true);
+                this.fetchProduct(newValue);
+            }
+        }
+    },
+    created() {
+        this.productQuantity = this.productQuantityInShoppingCart(this.productId) ?? this.defaultCount;
+    },
+    methods: {
+        ...mapMutations([SET_ACTIVE_PRODUCT_LOADING]),
+        ...mapActions({
+            fetchProduct: 'fetchProduct',
+            updateProductQuantityInCart: 'updateProductQuantityInCart',
+            unAssignActiveProduct: 'unAssignActiveProduct'
+        }),
+        addProductToShoppingCart() {
+            this.updateProductQuantityInCart({
+                product: this.activeProduct,
+                quantity: this.productQuantity,
+            });
+        },
+        updateQuantity(quantity) {
+            this.productQuantity = quantity;
+        }
+    },
+    unmounted() {
+        this.unAssignActiveProduct();
+    }
 }
 </script>
 
 <template>
-    <div class="grid grid-cols-2 gap-4 m-20 p-5 w-3/6 bg-white">
-        <div><img src="./../../assets/logo.png" alt=""></div>
+    <loading :active="activeProductLoading" loader="bars"/>
+
+    <div class="grid grid-cols-2 gap-4 m-20 p-5 bg-white">
+        <div class="justify-self-center"><img :src="activeProduct.image" class="h-72" alt=""></div>
         <div class="flex flex-col gap-3">
-            <span class="text-2xl text-gray-600">Title</span>
-            <span class="text-xs text-gray-400">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make </span>
-            <span class="text-xs text-gray-400">Category: test</span>
-            <span class="text-base text-cyan-400">Rs. 300</span>
-            <span class="text-sm text-gray-500 w-24"><vue-number-input size="small" :min="1" controls></vue-number-input></span>
-            <span><button class="bg-cyan-400 text-xs text-white p-2 mt-5 uppercase">Add to cart</button></span>
+            <span class="text-2xl text-gray-600">{{ activeProduct.title }}</span>
+            <span class="text-xs text-gray-400">{{ activeProduct.description }}</span>
+            <span class="text-xs text-gray-400">Category: {{ activeProduct.category }}</span>
+            <span class="text-base text-cyan-400">{{ convertToUsd(activeProduct.price) }}</span>
+            <span class="text-sm text-gray-500 w-24">
+                <vue-number-input size="small" :min="1" controls :model-value="productQuantity" @update:model-value="updateQuantity"></vue-number-input>
+            </span>
+            <span>
+                <button
+                    class="bg-cyan-400 text-xs text-white p-2 mt-5 uppercase"
+                    @click="addProductToShoppingCart"
+                >
+                    Add to cart
+                </button>
+            </span>
         </div>
     </div>
+
+    <products-in-same-category></products-in-same-category>
 </template>

@@ -1,10 +1,30 @@
 <script>
 import ShoppingCartSummary from './ShoppingCartSummary.vue';
+import ShoppingCartItem from './ShoppingCartItem.vue';
+import {mapActions, mapState} from "vuex";
 
 export default {
     name: "ShoppingCartIndex",
     components: {
+        ShoppingCartItem,
         ShoppingCartSummary,
+    },
+    computed: {
+        ...mapState({
+            shoppingCartItems: state => state.shoppingCart.shoppingCartItems,
+        }),
+    },
+    methods: {
+        ...mapActions({
+            updateProductQuantityInCart: 'updateProductQuantityInCart',
+            removeProductFromShoppingCart: 'removeProductFromShoppingCart',
+        }),
+        updateQuantity({cartItem, quantity}) {
+            this.updateProductQuantityInCart({
+                product: cartItem,
+                quantity: quantity,
+            })
+        }
     }
 }
 </script>
@@ -12,40 +32,17 @@ export default {
 <template>
     <div class="grid grid-cols-3 gap-4 m-20">
         <div class="col-span-2 bg-white p-5">
-            <table class="w-full table-fixed text-gray-500 text-sm">
+            <table v-if="shoppingCartItems.length" class="w-full table-fixed text-gray-500 text-sm">
                 <tbody class="divide-y">
-                    <tr>
-                        <td class="w-28"><img src="../../assets/logo.png" class="h-20" alt=""></td>
-                        <td class="flex flex-col w-48 pt-3">
-                            <span class="text-gray-600 text-base">Image Name</span>
-                            <span class="text-gray-400 text-xs">Category</span>
-                        </td>
-                        <td class="text-base text-cyan-400 w-24">Rs.300</td>
-                        <td class="text-sm text-gray-500 w-24"><vue-number-input size="small" :min="1" controls></vue-number-input></td>
-                        <td class="w-10 text-gray-500 text-right"><i class="material-icons text-lg">delete</i></td>
-                    </tr>
-                    <tr>
-                        <td class="w-28"><img src="../../assets/logo.png" class="h-20" alt=""></td>
-                        <td class="flex flex-col w-48 pt-3">
-                            <span class="text-gray-600 text-base">Image Name</span>
-                            <span class="text-gray-400 text-xs">Category</span>
-                        </td>
-                        <td class="text-base text-cyan-400 w-24">Rs.300</td>
-                        <td class="text-sm text-gray-500 w-24"><vue-number-input size="small" :min="1" controls></vue-number-input></td>
-                        <td class="w-10 text-gray-500 text-right"><i class="material-icons text-lg">delete</i></td>
-                    </tr>
-                    <tr>
-                        <td class="w-28"><img src="../../assets/logo.png" class="h-20" alt=""></td>
-                        <td class="flex flex-col w-48 pt-3">
-                            <span class="text-gray-600 text-base">Image Name</span>
-                            <span class="text-gray-400 text-xs">Category</span>
-                        </td>
-                        <td class="text-base text-cyan-400 w-24">Rs.300</td>
-                        <td class="text-sm text-gray-500 w-24"><vue-number-input size="small" :min="1" controls></vue-number-input></td>
-                        <td class="w-10 text-gray-500 text-right"><i class="material-icons text-lg">delete</i></td>
-                    </tr>
+                <shopping-cart-item :cart-item="cartItem" v-for="cartItem in shoppingCartItems"
+                                    @update-quantity="updateQuantity"
+                                    @remove-item="removeProductFromShoppingCart"/>
                 </tbody>
             </table>
+            <div v-else class="text-center text-gray-400 text-sm">
+                No products in the cart.
+                <router-link :to="{name: 'product-index'}" class="text-cyan-400">Shop now!</router-link>
+            </div>
         </div>
 
         <shopping-cart-summary></shopping-cart-summary>

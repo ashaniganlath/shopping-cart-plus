@@ -10,6 +10,7 @@
     "@chenfengyuan/vue-number-input": "^2.0.0-rc.2",
     "axios": "^0.25.0",
     "vue": "^3.2.29",
+    "vue-loading-overlay": "^5.0.3",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
   },
