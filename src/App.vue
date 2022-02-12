@@ -49,7 +49,7 @@
                             </td>
                             <td class="text-base text-cyan-400 w-24">Rs.300</td>
                             <td class="text-sm text-gray-500 w-24"><vue-number-input size="small" :min="1" controls></vue-number-input></td>
-                            <td class="w-10 text-xs text-gray-500 text-right"><i class="material-icons">delete</i></td>
+                            <td class="w-10 text-gray-500 text-right"><i class="material-icons text-lg">delete</i></td>
                         </tr>
                         <tr>
                             <td class="w-28"><img src="./assets/logo.png" class="h-20" alt=""></td>
@@ -59,7 +59,7 @@
                             </td>
                             <td class="text-base text-cyan-400 w-24">Rs.300</td>
                             <td class="text-sm text-gray-500 w-24"><vue-number-input size="small" :min="1" controls></vue-number-input></td>
-                            <td class="w-10 text-xs text-gray-500 text-right"><i class="material-icons">delete</i></td>
+                            <td class="w-10 text-gray-500 text-right"><i class="material-icons text-lg">delete</i></td>
                         </tr>
                     </tbody>
                 </table>
