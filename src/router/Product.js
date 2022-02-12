@@ -5,7 +5,7 @@ export default [
         component: () => import('../components/products/ProductIndex.vue'),
     },
     {
-        path: '/product/:productId',
+        path: '/products/:productId',
         name: 'product-details',
         component: () => import('../components/products/ProductDetails.vue'),
         props: true,
