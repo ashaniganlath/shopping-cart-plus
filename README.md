@@ -3,7 +3,6 @@
 this application is using the https://fakestoreapi.com/docs open api for data.
 
 ## Application Scope
-
 - products page
 - shopping cart 
 

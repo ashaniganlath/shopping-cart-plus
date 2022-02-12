@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = 'https://fakestoreapi.com/products';
+const baseURL = "https://fakestoreapi.com/products";
 
 export default class ProductService {
     static fetchAll() {

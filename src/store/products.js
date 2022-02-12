@@ -9,7 +9,7 @@ import {
 } from "./mutationTypes";
 
 const productStore = {
-    state: () =>  ({
+    state: () => ({
         activeProduct: {},
         activeProductLoading: true,
         products: [],
@@ -57,7 +57,10 @@ const productStore = {
                     commit(SET_ACTIVE_PRODUCT, response.data);
                     commit(SET_ACTIVE_PRODUCT_LOADING, false);
 
-                    return dispatch('fetchProductsInCategory', response.data.category);
+                    return dispatch(
+                        "fetchProductsInCategory",
+                        response.data.category
+                    );
                 });
         },
 
