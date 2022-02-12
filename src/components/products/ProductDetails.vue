@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
 import mixins from "../../mixins";
 import {SET_ACTIVE_PRODUCT_LOADING} from "../../store/mutationTypes";
 
@@ -40,16 +40,11 @@ export default {
             }
         }
     },
-    mounted() {
-        this.fetchProduct(this.productId);
-        this.productQuantity =
-            this.productQuantityInShoppingCart(this.productId) ??
-            this.defaultCount;
-    },
     unmounted() {
         this.unAssignActiveProduct();
     },
     created() {
+        this.fetchProduct(this.productId);
         this.productQuantity = this.productQuantityInShoppingCart(this.productId) ?? this.defaultCount;
     },
     methods: {
